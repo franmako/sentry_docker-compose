@@ -21,11 +21,13 @@ services:
     web:
         build: .
         container_name: sentry_web
+        depends_on:
+            - sentry
         expose:
             - 80
             - 443
         networks: 
-            - default
+            - databases
             - reverse-proxy
         environment:
             VIRTUAL_HOST: sentry.franmako.me
