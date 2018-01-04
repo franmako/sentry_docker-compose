@@ -15,6 +15,19 @@ services:
             SENTRY_DB_USER: ${DB_USER}
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
+        restart: always
+
+    web:
+        build: .
+        container_name: sentry_web
+        expose:
+            - 80
+            - 443
+        networks: 
+            - reverse-proxy
+        environment:
+            VIRTUAL_HOST: sentry.franmako.me
+        restart: always
         
     cron:
         image: sentry
@@ -28,6 +41,7 @@ services:
             SENTRY_DB_USER: ${DB_USER}
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
+        restart: always
         command: "sentry run cron"
 
     worker:   
@@ -42,9 +56,14 @@ services:
             SENTRY_DB_USER: ${DB_USER}
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
+        restart: always
         command: "sentry run worker"
 
 networks:
     databases:
         external:
             name: franmakodatabases_default
+
+    reverse-proxy:
+        external:
+            name: franmakoreverseproxy_reverse-proxy
