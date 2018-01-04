@@ -9,6 +9,8 @@ services:
     sentry:
         image: sentry
         env_file: .env
+        depends_on: 
+            - redis
         networks: 
             - databases
         ports:
@@ -23,6 +25,8 @@ services:
     cron:
         image: sentry
         env_file: .env
+        depends_on: 
+            - redis        
         networks: 
             - databases
         environment:
@@ -36,6 +40,8 @@ services:
     worker:   
         image: sentry
         env_file: .env
+        depends_on: 
+            - redis
         networks: 
             - databases
         environment:
