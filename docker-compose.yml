@@ -17,21 +17,6 @@ services:
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
         restart: always
-
-    web:
-        build: .
-        container_name: sentry_web
-        depends_on:
-            - sentry
-        expose:
-            - 80
-            - 443
-        networks: 
-            - databases
-            - reverse-proxy
-        environment:
-            VIRTUAL_HOST: sentry.franmako.me
-        restart: always
         
     cron:
         image: sentry
