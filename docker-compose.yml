@@ -3,12 +3,50 @@ version: "3.1"
 services:
     redis:
         image: redis
-    
-    
+        networks: 
+            - databases
+
+    sentry:
+        image: sentry
+        env_file: .env
+        networks: 
+            - databases
+        ports:
+            - "9000:9000"
+        environment:
+            - SENTRY_SECRET_KEY: ${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST: ${DB_HOST}
+            - SENTRY_DB_USER: ${DB_USER}
+            - SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            - SENTRY_REDIS_HOST: ${REDIS_HOST}
+        
+    cron:
+        image: sentry
+        env_file: .env
+        networks: 
+            - databases
+        environment:
+            - SENTRY_SECRET_KEY: ${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST: ${DB_HOST}
+            - SENTRY_DB_USER: ${DB_USER}
+            - SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            - SENTRY_REDIS_HOST: ${REDIS_HOST}
+        command: "sentry run cron"
+
+    worker:   
+        image: sentry
+        env_file: .env
+        networks: 
+            - databases
+        environment:
+            - SENTRY_SECRET_KEY: ${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST: ${DB_HOST}
+            - SENTRY_DB_USER: ${DB_USER}
+            - SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            - SENTRY_REDIS_HOST: ${REDIS_HOST}
+        command: "sentry run worker"
+
 networks:
     databases:
         external:
             name: franmakodatabases_default
-    reverse-proxy:
-        external:
-            name: franmakoreverseproxy_reverse-proxy
