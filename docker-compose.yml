@@ -8,22 +8,22 @@ services:
         ports:
             - "9000:9000"
         environment:
-            - SENTRY_SECRET_KEY= ${SECRET_KEY}
-            - SENTRY_POSTGRES_HOST= ${DB_HOST}
-            - SENTRY_DB_USER= ${DB_USER}
-            - SENTRY_DB_PASSWORD= ${DB_PASSWORD}
-            - SENTRY_REDIS_HOST= ${REDIS_HOST}
+            SENTRY_SECRET_KEY: ${SECRET_KEY}
+            SENTRY_POSTGRES_HOST: ${DB_HOST}
+            SENTRY_DB_USER: ${DB_USER}
+            SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            SENTRY_REDIS_HOST: ${REDIS_HOST}
         
     cron:
         image: sentry
         container_name: sentry_cron
         env_file: .env      
         environment:
-            - SENTRY_SECRET_KEY= ${SECRET_KEY}
-            - SENTRY_POSTGRES_HOST= ${DB_HOST}
-            - SENTRY_DB_USER= ${DB_USER}
-            - SENTRY_DB_PASSWORD= ${DB_PASSWORD}
-            - SENTRY_REDIS_HOST= ${REDIS_HOST}
+            SENTRY_SECRET_KEY: ${SECRET_KEY}
+            SENTRY_POSTGRES_HOST: ${DB_HOST}
+            SENTRY_DB_USER: ${DB_USER}
+            SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            SENTRY_REDIS_HOST: ${REDIS_HOST}
         command: "sentry run cron"
 
     worker:   
@@ -31,11 +31,11 @@ services:
         container_name: sentry_worker
         env_file: .env
         environment:
-            - SENTRY_SECRET_KEY= ${SECRET_KEY}
-            - SENTRY_POSTGRES_HOST= ${DB_HOST}
-            - SENTRY_DB_USER= ${DB_USER}
-            - SENTRY_DB_PASSWORD= ${DB_PASSWORD}
-            - SENTRY_REDIS_HOST= ${REDIS_HOST}
+            SENTRY_SECRET_KEY: ${SECRET_KEY}
+            SENTRY_POSTGRES_HOST: ${DB_HOST}
+            SENTRY_DB_USER: ${DB_USER}
+            SENTRY_DB_PASSWORD: ${DB_PASSWORD}
+            SENTRY_REDIS_HOST: ${REDIS_HOST}
         command: "sentry run worker"
 
 networks:
