@@ -52,7 +52,3 @@ networks:
     databases:
         external:
             name: franmakodatabases_default
-
-    reverse-proxy:
-        external:
-            name: franmakoreverseproxy_reverse-proxy
