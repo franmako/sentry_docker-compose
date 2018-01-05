@@ -16,17 +16,6 @@ services:
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
         restart: always
-
-    nginx:
-        build: .
-        expose:
-            - "80"
-            - "443"
-        networks: 
-            - databases
-        environment:
-            - VIRTUAL_HOST=sentry.franmako.me
-        restart: always
         
     cron:
         image: sentry
