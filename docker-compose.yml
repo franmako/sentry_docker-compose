@@ -16,6 +16,15 @@ services:
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
         restart: always
+
+    web:
+        build: .
+        container_name: sentry_web
+        networks: 
+            - databases
+        environment:
+            VIRTUAL_HOST: sentry.franmako.me
+        restart: always
         
     cron:
         image: sentry
