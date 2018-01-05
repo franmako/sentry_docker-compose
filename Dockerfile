@@ -1,7 +1,7 @@
 FROM nginx:latest
 
-RUN rm /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
-ADD sentry.conf /etc/nginx/nginx.conf
+COPY sentry.conf /etc/nginx/conf.d/
 
 CMD ["nginx"]
