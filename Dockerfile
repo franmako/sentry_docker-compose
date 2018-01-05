@@ -1,7 +1,7 @@
 FROM nginx:latest
 
-COPY sentry.conf /etc/nginx/sites-available/sentry.conf
+RUN rm /etc/nginx/nginx.conf
 
-RUN ln -s /etc/nginx/sites-available/sentry.conf /etc/nginx/sites-enabled/sentry.conf
+ADD sentry.conf /etc/nginx/nginx.conf
 
 CMD ["nginx"]
