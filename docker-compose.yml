@@ -16,7 +16,24 @@ services:
             SENTRY_DB_PASSWORD: ${DB_PASSWORD}
             SENTRY_REDIS_HOST: ${REDIS_HOST}
         restart: always
-        
+
+    web:
+        build: .
+        container_name: sentry_web
+        volumes:
+            - nginx_logs:/var/log/nginx
+        networks:
+            - databases
+            - reverse-proxy
+        environment:
+            - VIRTUAL_HOST=sentry.franmako.me
+            - LETSENCRYPT_HOST=sentry.franmako.me
+            - LETSENCRYPT_EMAIL=francisomakokha@outlook.com   
+        expose:
+            - "80"     
+            - "443"
+        restart: always
+
     cron:
         image: sentry
         container_name: sentry_cron
@@ -47,7 +64,14 @@ services:
         restart: always
         command: "sentry run worker"
 
+volumes:
+    nginx_logs:
+
 networks:
     databases:
         external:
             name: franmakodatabases_default
+
+    reverse-proxy:
+        external:
+            name: franmakoreverseproxy_reverse-proxy
