@@ -26,12 +26,9 @@ services:
             - databases
             - reverse-proxy
         environment:
-            - VIRTUAL_HOST=sentry.franmako.me
-            - LETSENCRYPT_HOST=sentry.franmako.me
-            - LETSENCRYPT_EMAIL=francisomakokha@outlook.com   
+            - VIRTUAL_HOST=sentry.franmako.me 
         expose:
             - "80"     
-            - "443"
         restart: always
 
     cron:
