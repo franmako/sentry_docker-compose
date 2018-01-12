@@ -5,8 +5,8 @@ services:
         image: sentry
         container_name: sentry_sentry
         env_file: .env
-        ports:
-            - "9000:9000"
+        expose:
+            - "9000"
         networks: 
             - databases
         environment:
