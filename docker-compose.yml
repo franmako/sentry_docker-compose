@@ -15,7 +15,7 @@ services:
             - SENTRY_DB_USER= ${DB_USER}
             - SENTRY_DB_PASSWORD= ${DB_PASSWORD}
             - SENTRY_REDIS_HOST= ${REDIS_HOST}
-        restart: always
+        restart: unless-stopped
 
     web:
         build: .
@@ -29,7 +29,7 @@ services:
             - VIRTUAL_HOST=sentry.franmako.me 
         expose:
             - "80"     
-        restart: always
+        restart: unless-stopped
 
     cron:
         image: sentry
@@ -39,7 +39,7 @@ services:
             - databases   
         environment:
             - SENTRY_SECRET_KEY= ${SECRET_KEY}
-        restart: always
+        restart: unless-stopped
         command: "sentry run cron"
 
     worker:   
@@ -50,7 +50,7 @@ services:
             - databases
         environment:
             - SENTRY_SECRET_KEY= ${SECRET_KEY}
-        restart: always
+        restart: unless-stopped
         command: "sentry run worker"
 
     smtp:
