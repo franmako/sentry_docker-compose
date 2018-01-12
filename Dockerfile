@@ -1,5 +1,7 @@
 FROM nginx:latest
 
+RUN apt-get update && apt-get install -y nano
+
 #Copy custom nginx config & symfony app virtualhost
 ADD nginx.conf /etc/nginx/nginx.conf
 
