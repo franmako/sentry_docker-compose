@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
     sentry:
-        image: sentry-onpremise
+        image: sentry
         container_name: sentry_sentry
         env_file: .env
         expose:
@@ -32,7 +32,7 @@ services:
         restart: unless-stopped
 
     cron:
-        image: sentry-onpremise
+        image: sentry
         container_name: sentry_cron
         env_file: .env   
         networks: 
@@ -43,7 +43,7 @@ services:
         command: "sentry run cron"
 
     worker:   
-        image: sentry-onpremise
+        image: sentry
         container_name: sentry_worker
         env_file: .env
         networks: 
