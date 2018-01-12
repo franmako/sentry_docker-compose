@@ -7,6 +7,4 @@ ADD sentry.conf /etc/nginx/conf.d/
 
 RUN usermod -u 1000 www-data
 
-RUN nginx -t
-
 CMD ["nginx"]
