@@ -31,7 +31,6 @@ services:
             - LETSENCRYPT_EMAIL=francisomakokha@outlook.com   
         expose:
             - "80"     
-            - "443"
         restart: always
 
     cron:

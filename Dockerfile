@@ -1,7 +1,12 @@
 FROM nginx:latest
 
-COPY sentry.conf /etc/nginx/sites-available/
+#Copy custom nginx config & symfony app virtualhost
+ADD nginx.conf /etc/nginx/nginx.conf
 
-RUN ln -s /etc/nginx/sites-available/sentry.conf /etc/nginx/sites-enabled/sentry.conf
+ADD sentry.conf /etc/nginx/conf.d/
 
-RUN rm /etc/nginx/sites-enabled/default
+RUN usermod -u 1000 www-data
+
+RUN nginx -t
+
+CMD ["nginx"]
