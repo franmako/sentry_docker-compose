@@ -11,7 +11,7 @@ services:
         expose:
             - "5432"
         environment:
-            DB_PASSWORD= ${DB_PASSWORD}
+            - DB_PASSWORD=${DB_PASSWORD}
         restart: always
 
     redis:
@@ -28,11 +28,11 @@ services:
         expose:
             - "9000"
         environment:
-            SENTRY_SECRET_KEY= ${SECRET_KEY}
-            SENTRY_POSTGRES_HOST= ${DB_HOST}
-            SENTRY_DB_USER= ${DB_USER}
-            SENTRY_DB_PASSWORD= ${DB_PASSWORD}
-            SENTRY_REDIS_HOST= ${REDIS_HOST}
+            - SENTRY_SECRET_KEY=${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST=${DB_HOST}
+            - SENTRY_DB_USER=${DB_USER}
+            - SENTRY_DB_PASSWORD=${DB_PASSWORD}
+            - SENTRY_REDIS_HOST=${REDIS_HOST}
         restart: unless-stopped
 
     web:
@@ -53,7 +53,7 @@ services:
         container_name: sentry_cron
         env_file: .env      
         environment:
-            - SENTRY_SECRET_KEY= ${SECRET_KEY}
+            - SENTRY_SECRET_KEY=${SECRET_KEY}
         restart: unless-stopped
         command: "sentry run cron"
 
@@ -62,7 +62,7 @@ services:
         container_name: sentry_worker
         env_file: .env
         environment:
-            SENTRY_SECRET_KEY= ${SECRET_KEY}
+            - SENTRY_SECRET_KEY=${SECRET_KEY}
         restart: unless-stopped
         command: "sentry run worker"
 
@@ -71,8 +71,8 @@ services:
         container_name: sentry_smtp
         env_file: .env
         environment:
-            GMAIL_USER= ${SMTP_USER}
-            GMAIL_PASSWORD= ${SMTP_PASSWORD}
+            - GMAIL_USER=${SMTP_USER}
+            - GMAIL_PASSWORD=${SMTP_PASSWORD}
 
 volumes:
     nginx_logs:
