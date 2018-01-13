@@ -41,6 +41,7 @@ services:
         volumes:
             - nginx_logs:/var/log/nginx
         networks:
+            - default
             - reverse-proxy
         environment:
             - VIRTUAL_HOST=sentry.franmako.me 
