@@ -55,6 +55,10 @@ services:
         env_file: .env      
         environment:
             - SENTRY_SECRET_KEY=${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST=${DB_HOST}
+            - SENTRY_DB_USER=${DB_USER}
+            - SENTRY_DB_PASSWORD=${DB_PASSWORD}
+            - SENTRY_REDIS_HOST=${REDIS_HOST}
         restart: unless-stopped
         command: "sentry run cron"
 
@@ -64,6 +68,10 @@ services:
         env_file: .env
         environment:
             - SENTRY_SECRET_KEY=${SECRET_KEY}
+            - SENTRY_POSTGRES_HOST=${DB_HOST}
+            - SENTRY_DB_USER=${DB_USER}
+            - SENTRY_DB_PASSWORD=${DB_PASSWORD}
+            - SENTRY_REDIS_HOST=${REDIS_HOST}
         restart: unless-stopped
         command: "sentry run worker"
 
