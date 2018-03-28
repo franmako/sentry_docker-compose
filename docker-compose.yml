@@ -53,6 +53,7 @@ services:
             - VIRTUAL_HOST=sentry.reddevs.io
         expose:
             - "80"     
+            - "443"
         restart: unless-stopped
 
     cron:
