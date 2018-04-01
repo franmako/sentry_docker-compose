@@ -49,13 +49,13 @@ services:
         networks:
             - default
             - reverse-proxy
-        environment:
-            - VIRTUAL_HOST=sentry.reddevs.io
-            - LETSENCRYPT_HOST=sentry.reddevs.io
-            - LETSENCRYPT_EMAIL=francisomakokha@outlook.com
+        labels:
+            - traefik.backend=sentry
+            - traefik.frontend.rule=Host:sentry.reddevs.io
+            - traefik.docker.network=proxy
+            - traefik.port=80
         expose:
             - "80"     
-            - "443"
         restart: unless-stopped
 
     cron:
@@ -103,4 +103,4 @@ volumes:
 networks:
     reverse-proxy:
         external:
-            name: franmakoreverseproxy_reverse-proxy
+            name: proxy
