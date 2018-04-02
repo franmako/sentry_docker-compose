@@ -53,7 +53,6 @@ services:
         volumes:
             - nginx_logs:/var/log/nginx
         networks:
-            - default
             - reverse-proxy
         labels:
             - traefik.backend=sentry
